@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#define SOLUTION_MAX_SIZE 5
+#define SOLUTION_MAX_SIZE 3
 
 typedef struct list_element list_element;
 
