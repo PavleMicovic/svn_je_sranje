@@ -3,9 +3,6 @@
 #include "list.h"
 #include <inttypes.h>
 
-#define BOLD_GREEN   "\033[1m\033[32m"
-#define RESET "\033[0m"
-
 typedef struct matrix_elem
 {
     char elem;

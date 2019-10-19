@@ -6,14 +6,15 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <windows.h>
 
 #define SOLUTION_MAX_SIZE 3
-
-typedef struct list_element list_element;
+#define BOLDGREEN   "\033[1m\033[32m"
+#define RESET   "\033[0m"
 
 typedef struct list_element{
 	char solution[SOLUTION_MAX_SIZE];
-	list_element* next;
+	struct list_element* next;
 } list_element;
 
 typedef struct list{
