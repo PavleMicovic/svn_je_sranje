@@ -9,6 +9,6 @@ typedef struct matrix_elem
     bool bold;
 } matrix_elem;
 void FillMatrix(matrix_elem* matrix);
-void PrintMatrix(matrix_elem* matrix);
+void PrintMatrix(matrix_elem* matrix, list* list);
 void SolveMatrix(matrix_elem* matrix, list* list);
 #endif

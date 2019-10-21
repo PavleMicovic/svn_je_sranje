@@ -1,28 +1,13 @@
 #include "matrix.h"
 void strcat_c (char *str, char c)
   {
-<<<<<<< HEAD
     for (;*str;str++);
-=======
-    for (;*str;str++); // note the terminating semicolon here.
->>>>>>> 25d7ca1ec269e8e25b513f2ace9479c0ad89af4d
     *str++ = c;
     *str++ = 0;
   }
 void FillMatrix(matrix_elem* matrix)
 {
-<<<<<<< HEAD
     int_fast8_t i;
-    /*matrix->elem='t';
-    (matrix+1)->elem='a';
-    (matrix+2)->elem='h';
-    (matrix+3)->elem='p';
-    (matrix+4)->elem='e';
-    (matrix+5)->elem='r';
-    (matrix+6)->elem='s';
-    (matrix+7)->elem='t';
-    (matrix+8)->elem='p';*/
-
     matrix->elem='C';
     (matrix+1)->elem='T';
 	(matrix+2)->elem='A';
@@ -96,55 +81,39 @@ void FillMatrix(matrix_elem* matrix)
 	(matrix+63)->elem='A';
 	for(i=0;i<SOLUTION_MAX_SIZE*SOLUTION_MAX_SIZE;i++)
         (matrix+i)->bold=false;
-=======
-	matrix->elem='t';
-	matrix->bold=false;
-	(matrix+1)->elem='i';
-	(matrix+1)->bold=false;
-	(matrix+2)->elem='p';
-	(matrix+2)->bold=false;
-	(matrix+3)->elem='p';
-	(matrix+3)->bold=false;
-	(matrix+4)->elem='o';
-	(matrix+4)->bold=false;
-	(matrix+5)->elem='r';
-	(matrix+5)->bold=false;
-	(matrix+6)->elem='s';
-	(matrix+6)->bold=false;
-	(matrix+7)->elem='t';
-	(matrix+7)->bold=false;
-	(matrix+8)->elem='p';
-	(matrix+8)->bold=false;
->>>>>>> 25d7ca1ec269e8e25b513f2ace9479c0ad89af4d
 }
-void PrintMatrix(matrix_elem* matrix)
+void PrintMatrix(matrix_elem* matrix, list* list)
 {
 	uint_fast8_t i;
+    uint_fast8_t j;
+	list_element* current=list->head;
+	char buff[SOLUTION_MAX_SIZE+1];
 	for(i=0;i<SOLUTION_MAX_SIZE*SOLUTION_MAX_SIZE;i++)
 		{
-<<<<<<< HEAD
 			if((matrix+((i/SOLUTION_MAX_SIZE)*SOLUTION_MAX_SIZE+i%SOLUTION_MAX_SIZE))->bold==true)
 			{
+			    /*while(strcmp(buff, current->solution)!=0)
+                {
+                    if (strlen(buff)<SOLUTION_MAX_SIZE)
+                        strcat_c(buff, matrix[(i/SOLUTION_MAX_SIZE)*SOLUTION_MAX_SIZE+i%SOLUTION_MAX_SIZE].elem);
+                    else
+                    {
+                        current=current->next;
+                        buff[0]='\0';
+                    }
+                }*/
                 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
                 SetConsoleTextAttribute(hConsole, 2);
-                printf("%c\t", matrix[(i/SOLUTION_MAX_SIZE)*SOLUTION_MAX_SIZE+i%SOLUTION_MAX_SIZE].elem);
+                //for (j=0;j<strlen(buff);j++)
+                //{
+                    printf("%c\t", matrix[(i/SOLUTION_MAX_SIZE)*SOLUTION_MAX_SIZE+i%SOLUTION_MAX_SIZE].elem);
+                    //i++;
+                //}
                 SetConsoleTextAttribute(hConsole, 7);
             }
 			else
 				printf("%c\t", matrix[(i/SOLUTION_MAX_SIZE)*SOLUTION_MAX_SIZE+i%SOLUTION_MAX_SIZE].elem);
 			if(i%SOLUTION_MAX_SIZE==SOLUTION_MAX_SIZE-1)
-=======
-			if((matrix+i*SOLUTION_MAX_SIZE+j)->bold==true)
-			{
-                HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-                SetConsoleTextAttribute(hConsole, 2);
-                printf("%c\t", matrix[i*SOLUTION_MAX_SIZE+j].elem);
-                SetConsoleTextAttribute(hConsole, 7);
-            }
-			else
-				printf("%c\t", matrix[i*SOLUTION_MAX_SIZE+j].elem);
-			if(j==SOLUTION_MAX_SIZE-1)
->>>>>>> 25d7ca1ec269e8e25b513f2ace9479c0ad89af4d
 			{
 				printf("\n");
 			}
@@ -154,7 +123,6 @@ void PrintMatrix(matrix_elem* matrix)
 
 void SolveMatrix(matrix_elem* matrix, list* list)
 {
-<<<<<<< HEAD
     int_fast8_t i;
     int_fast8_t j;
     int_fast8_t k;
@@ -185,15 +153,18 @@ void SolveMatrix(matrix_elem* matrix, list* list)
                 }
                 if (strstr(buff, current->solution)!=NULL)
                 {
-                    len=strlen(current->solution)-1;
+                    len=strlen(current->solution);
                     for(k=0;k<len;k++)
                         matrix[i*SOLUTION_MAX_SIZE+j-k].bold=true;
                 }
                 if (strstr(buff_reverse, current->solution)!=NULL)
                 {
+                    for (m=j;m>-1;m--)
+                        if (matrix[i*SOLUTION_MAX_SIZE+m].elem==current->solution[0] && matrix[i*SOLUTION_MAX_SIZE+m-1].elem==current->solution[1])
+                            break;
                     len=strlen(current->solution);
                     for(k=0;k<len;k++)
-                        matrix[i*SOLUTION_MAX_SIZE+j-k].bold=true;
+                        matrix[i*SOLUTION_MAX_SIZE+m-k].bold=true;
                 }
                 buff[0]='\0';
                 buff_reverse[0]='\0';
@@ -214,9 +185,9 @@ void SolveMatrix(matrix_elem* matrix, list* list)
             k++;
             len++;
         }
-        for (m=0;m<SOLUTION_MAX_SIZE;m++)
+        for (m=0;m<strlen(buff);m++)
         {
-            buff_reverse[m]=buff[SOLUTION_MAX_SIZE-m-1];
+            buff_reverse[m]=buff[strlen(buff)-m-1];
         }
         buff_reverse[m]='\0';
         current=list->head;
@@ -239,47 +210,93 @@ void SolveMatrix(matrix_elem* matrix, list* list)
         buff[0]='\0';
         buff_reverse[0]='\0';
     }
-=======
-    int_least8_t i;
-    int_least8_t j;
-    int_least8_t k;
-    int_least8_t len;
-    list_element* current=list->head;
-	char buff[SOLUTION_MAX_SIZE+1];
-	buff[0]='\0';
-	//direction 1/8 right
-    for(i=0;i<SOLUTION_MAX_SIZE;i++)
-		for(j=0;j<SOLUTION_MAX_SIZE;j++)
-			{
-				strcat_c(buff, matrix[i*SOLUTION_MAX_SIZE+j].elem);
-				if(j==SOLUTION_MAX_SIZE-1)
-				{
-					strcat_c(buff, '\0');
-					while((strcmp(buff, current->solution)!=0))
-					{
-						if(current->next==NULL)
-							break;
-						current=current->next;
-					}
-					if(strcmp(buff, current->solution)==0)
-					{
-						len=strlen(current->solution);
-						for(k=0;k<len;k++)
-							matrix[i*SOLUTION_MAX_SIZE+j-k].bold=true;
-					}
-					buff[0]='\0';
-				}
-			}
-	//direction 2/8 diagonal top left to bottom right
-	/*for(i=0;i<SOLUTION_MAX_SIZE, i++)
+    //direction 3/4 up and down
+    buff[0]='\0';
+    buff_reverse[0]='\0';
+    for (j=0;j<SOLUTION_MAX_SIZE;j++)
+    {
+        for (i=0;i<SOLUTION_MAX_SIZE;i++)
+        {
+            current=list->head;
+            strcat_c(buff, matrix[i*SOLUTION_MAX_SIZE+j].elem);
+            if(i==SOLUTION_MAX_SIZE-1)
+            {
+                for (k=0;k<strlen(buff);k++)
+                {
+                    buff_reverse[k]=buff[strlen(buff)-k-1];
+                }
+                buff_reverse[k]='\0';
+                while ((strstr(buff, current->solution)==NULL) && strstr(buff_reverse, current->solution)==NULL)
+                {
+                    if(current->next==NULL)
+                        break;
+                    current=current->next;
+                }
+                if (strstr(buff, current->solution)!=NULL)
+                {
+                    len=strlen(current->solution);
+                    for(k=0;k<len;k++)
+                        matrix[(i-k)*SOLUTION_MAX_SIZE+j].bold=true;
+                }
+                if (strstr(buff_reverse, current->solution)!=NULL)
+                {
+                    for (m=j;m>-1;m--)
+                        if (matrix[i*SOLUTION_MAX_SIZE+m].elem==current->solution[0] && matrix[i*SOLUTION_MAX_SIZE+m-1].elem==current->solution[1])
+                            break;
+                    len=strlen(current->solution);
+                    for(k=0;k<len;k++)
+                        matrix[(i-k)*SOLUTION_MAX_SIZE+m].bold=true;
+                }
+                        buff[0]='\0';
+                        buff_reverse[0]='\0';
+                    }
+                }
+    }
+    //direction 4/4 other diagonal
+    for (i=0;i<SOLUTION_MAX_SIZE;i++)
+        for(j=0;j<SOLUTION_MAX_SIZE;j++)
+    {
+        k=i;
+        len=j;
+        buff[0]='\0';
+        buff_reverse[0]='\0';
+        while (k!=0 && len!=SOLUTION_MAX_SIZE)
+        {
+            strcat_c(buff, matrix[k*SOLUTION_MAX_SIZE+len].elem);
+            k--;
+            len++;
+        }
+        for (m=0;m<strlen(buff);m++)
+        {
+            buff_reverse[m]=buff[strlen(buff)-m-1];
+        }
+        buff_reverse[m]='\0';
+        current=list->head;
+        while ((strstr(buff, current->solution)==NULL) && strstr(buff_reverse, current->solution)==NULL)
+        {
+            if(current->next==NULL)
+                break;
+            current=current->next;
+        }
+        if (strstr(buff, current->solution)!=NULL)
+        {
+            for(m=0;m<strlen(current->solution);m++)
+                matrix[k*SOLUTION_MAX_SIZE+len+m*SOLUTION_MAX_SIZE+m].bold=true;
+        }
+        if (strstr(buff_reverse, current->solution)!=NULL)
+        {
+            for(m=0;m<strlen(current->solution);m++)
+                matrix[k*SOLUTION_MAX_SIZE+len+m*SOLUTION_MAX_SIZE+m].bold=true;
+        }
+        buff[0]='\0';
+        buff_reverse[0]='\0';
+    }
+    printf("Resenje osmosmerke:\t");
+    for (i=0;i<SOLUTION_MAX_SIZE;i++)
         for (j=0;j<SOLUTION_MAX_SIZE;j++)
         {
-            int_least8_t k, l;
-            if(j-i>0)
-            {
-                for(k=i;k<)
-            }
-        }*/
-
->>>>>>> 25d7ca1ec269e8e25b513f2ace9479c0ad89af4d
+            if (matrix[i*SOLUTION_MAX_SIZE+j].bold==false)
+                printf("%c", matrix[i*SOLUTION_MAX_SIZE+j]);
+        }
+    printf("\n");
 }
